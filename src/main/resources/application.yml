@@ -1,0 +1,62 @@
+# Tomcat
+server:
+    tomcat:
+        uri-encoding: UTF-8
+        max-threads: 1000
+        min-spare-threads: 30
+    port: 8080
+    servlet:
+        context-path: /MyProject
+
+spring:
+    redis:
+       host: 134.175.144.124
+       port: 6379
+       database: 0
+       topic: __keyevent@*__:expired
+       timeout: 500
+       jedis: 
+          pool: 
+             max-active: 100
+             max-idle: 10
+             min-idle: 10
+             max-wait: 100
+    mvc:
+       view:
+             prefix: /templates/
+             suffix: .html
+    datasource:
+        name: test
+        type: com.alibaba.druid.pool.DruidDataSource
+        #druid相关配置
+        druid:
+          filters: stat
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://localhost:3306/myproject?useUnicode=true&useUnicode=true&characterEncoding=utf8&serverTimezone=GMT
+          username: root
+          password: root
+          # 使用druid数据源
+          maxActive: 150
+          minIdle: 5
+          max-idle: 20
+          initialSize: 30
+          logAbandoned: true
+          removeAbandoned: true
+          removeAbandonedTimeout: 10
+          maxWait: 6000
+          timeBetweenEvictionRunsMillis: 10000
+          minEvictableIdleTimeMillis: 10000
+          validationQuery: SELECT NOW() FROM DUAL
+          testWhileIdle: true
+          testOnBorrow: false
+          testOnReturn: false
+          poolPreparedStatements: true
+          maxOpenPreparedStatements: 20
+     
+mybatis-plus: #mybatis-plus配置
+  mapper-locations: classpath:mappers/*.xml # xml
+  type-aliases-package: com.hlst.*.entity # 实体扫描，多个package用逗号或者分号分隔
+  configuration:
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+
+
